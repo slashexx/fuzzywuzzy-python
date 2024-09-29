@@ -71,6 +71,24 @@ def upload_image():
     phonetic_target = phonetic_match(normalized_name)
     phonetic_matches = [name for name in name_list if phonetic_match(name) == phonetic_target]
 
+
+print("Original Text:", hindi_text)
+print("Transliterated Text:", normalized_name)
+
+# Generate phonetic encoding for the normalized name
+phonetic_target = phonetic_match(normalized_name)
+print("Phonetic Target for Normalized Name:", phonetic_target)
+
+# Check phonetic encodings for each name in the list
+for name in name_list:
+    phonetic_code = phonetic_match(name)
+    print(f"Phonetic Match for '{name}': {phonetic_code}")
+
+# Perform phonetic matching
+phonetic_matches = [name for name in name_list if phonetic_match(name) == phonetic_target]
+
+# Print phonetic matches
+print("Phonetic Matches Found:", phonetic_matches)
     return jsonify({
         'original_text': hindi_text,
         'transliterated_text': normalized_name,
