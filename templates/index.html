@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR and Translation</title>
+</head>
+<body>
+    <form action="/upload" method="POST" enctype="multipart/form-data" id="uploadForm">
+        <input type="file" name="image" required>
+        <button type="submit">Upload</button>
+    </form>
+    
+    <div id="result">
+        <h3>Original Text:</h3>
+        <p id="originalText"></p>
+        <h3>Translated Text:</h3>
+        <p id="translatedText"></p>
+        <h3>Fuzzy Matches:</h3>
+        <p id="fuzzyMatches"></p>
+        <h3>Phonetic Matches:</h3>
+        <p id="phoneticMatches"></p>
+    </div>
+
+    <script>
+        document.getElementById("uploadForm").onsubmit = async (event) => {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(event.target);
+
+            try {
+                const response = await fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                });
+                const data = await response.json();
+
+                // Display the original and translated text
+                document.getElementById("originalText").innerText = data.original_text || data.error;
+                document.getElementById("translatedText").innerText = data.transliterated_text || '';
+                document.getElementById("fuzzyMatches").innerText = data.fuzzy_matches.join(", ") || '';
+                document.getElementById("phoneticMatches").innerText = data.phonetic_matches.join(", ") || '';
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+    </script>
+</body>
+</html>
