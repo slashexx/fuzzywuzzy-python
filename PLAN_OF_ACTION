@@ -1,0 +1,9 @@
+/app
+    ├── __init__.py         # Initialize Flask app
+    ├── main.py             # Main application logic
+    ├── utils.py            # Utility functions (transliteration, matching)
+    ├── feedback.py         # Feedback handling
+    ├── logging.py          # Logging configuration
+    ├── models.py           # Database models (if using ORM)
+    ├── templates/          # HTML templates
+    └── static/             # Static files (CSS, JS)
